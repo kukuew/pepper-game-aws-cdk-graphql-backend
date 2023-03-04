@@ -29,14 +29,14 @@ input UpdateStarshipInput {
 }
 
 type Query {
-    getStarshipById(id: String!): Starship
+    getStarshipById(starshipID: String!): Starship
     listStarships: [Starship]
 }
 
 type Mutation {
-    createStarship(starship: StarshipInput!): Starship
-    updateStarship(starship: UpdateStarshipInput!): Starship
-    deleteStarship(id: String!): String
+    createStarship(starshipInput: StarshipInput!): Starship
+    updateStarship(updateStarshipInput: UpdateStarshipInput!): Starship
+    deleteStarship(starshipID: String!): String
 }
 
 type Subscription {

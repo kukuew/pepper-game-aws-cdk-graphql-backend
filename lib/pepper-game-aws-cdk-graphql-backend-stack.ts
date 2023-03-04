@@ -3,6 +3,8 @@ import * as appsync from '@aws-cdk/aws-appsync'
 import * as lambda from '@aws-cdk/aws-lambda'
 import * as ddb from '@aws-cdk/aws-dynamodb'
 
+import { RESOLVERS } from '../lambda-fns/enums'
+
 export class PepperGameAwsCdkGraphqlBackendStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props)
@@ -40,27 +42,27 @@ export class PepperGameAwsCdkGraphqlBackendStack extends cdk.Stack {
 
     starshipsLambdaDS.createResolver({
       typeName: 'Query',
-      fieldName: 'getStarshipById'
+      fieldName: RESOLVERS.getStarshipById
     })
 
     starshipsLambdaDS.createResolver({
       typeName: 'Query',
-      fieldName: 'listStarships'
+      fieldName: RESOLVERS.listStarships
     })
 
     starshipsLambdaDS.createResolver({
       typeName: 'Mutation',
-      fieldName: 'createStarship'
+      fieldName: RESOLVERS.createStarship
     })
 
     starshipsLambdaDS.createResolver({
       typeName: 'Mutation',
-      fieldName: 'updateStarship'
+      fieldName: RESOLVERS.updateStarship
     })
 
     starshipsLambdaDS.createResolver({
       typeName: 'Mutation',
-      fieldName: 'deleteStarship'
+      fieldName: RESOLVERS.deleteStarship
     })
 
     const table = new ddb.Table(this, 'StarshipsTable', {
