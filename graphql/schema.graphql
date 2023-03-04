@@ -16,7 +16,7 @@ input AttributeInput {
     value: String!
 }
 
-input StarshipInput {
+input CreateStarshipInput {
     id: ID!
     name: String!
     attributes: [AttributeInput]!
@@ -34,7 +34,7 @@ type Query {
 }
 
 type Mutation {
-    createStarship(starshipInput: StarshipInput!): Starship
+    createStarship(createStarshipInput: CreateStarshipInput!): Starship
     updateStarship(updateStarshipInput: UpdateStarshipInput!): Starship
     deleteStarship(starshipID: String!): String
 }

@@ -15,12 +15,12 @@ export type AppSyncEvent = {
   }
   arguments: {
     starshipID: string
-    starshipInput: StarshipInput
+    createStarshipInput: CreateStarshipInput
     updateStarshipInput: UpdateStarshipInput
   }
 }
 
-export type StarshipInput = Starship
+export type CreateStarshipInput = Starship
 
 export type UpdateStarshipInput = Optional<Starship, 'name' | 'attributes'>
 

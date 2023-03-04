@@ -3,7 +3,7 @@ import { DocumentClient } from 'aws-sdk/lib/dynamodb/document_client'
 
 import { Starship, UpdateStarshipInput } from './types'
 
-const updateStarship = async (starship: UpdateStarshipInput): Promise<Starship | null> => {
+const updateStarship = async (updateStarshipInput: UpdateStarshipInput): Promise<Starship | null> => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const putParams: DocumentClient.Put = {
     TableName: process.env.STARSHIPS_TABLE,
@@ -12,18 +12,18 @@ const updateStarship = async (starship: UpdateStarshipInput): Promise<Starship |
   const getParams: DocumentClient.GetItemInput = {
     TableName: process.env.STARSHIPS_TABLE,
     Key: {
-      id: starship.id
+      id: updateStarshipInput.id
     }
   }
 
   try {
-    const { Item: currentStarship } = await docClient.get(getParams).promise()
-    if (!currentStarship) {
+    const { Item: starship } = await docClient.get(getParams).promise()
+    if (!starship) {
       return null
     }
     const newStarship = {
-      ...currentStarship,
-      ...starship
+      ...starship,
+      ...updateStarshipInput
     }
     await docClient
       .put({

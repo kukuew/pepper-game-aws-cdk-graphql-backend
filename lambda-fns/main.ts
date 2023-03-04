@@ -15,7 +15,7 @@ exports.handler = async (event: AppSyncEvent) => {
       return listStarships()
     }
     case RESOLVERS.createStarship: {
-      return createStarship(event.arguments.starshipInput)
+      return createStarship(event.arguments.createStarshipInput)
     }
     case RESOLVERS.updateStarship: {
       return updateStarship(event.arguments.updateStarshipInput)
