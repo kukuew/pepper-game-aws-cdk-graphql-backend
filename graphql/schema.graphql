@@ -1,0 +1,49 @@
+directive @aws_subscribe(mutations: [String!]!) on FIELD_DEFINITION
+
+type Attribute {
+    name: String!
+    value: String!
+}
+
+type Starship {
+    id: ID!
+    name: String!
+    attributes: [Attribute]!
+}
+
+input AttributeInput {
+    name: String!
+    value: String!
+}
+
+input StarshipInput {
+    id: ID!
+    name: String!
+    attributes: [AttributeInput]!
+}
+
+input UpdateStarshipInput {
+    id: ID!
+    name: String
+    attributes: [AttributeInput]
+}
+
+type Query {
+    getStarshipById(id: String!): Starship
+    listStarships: [Starship]
+}
+
+type Mutation {
+    createStarship(starship: StarshipInput!): Starship
+    updateStarship(starship: UpdateStarshipInput!): Starship
+    deleteStarship(id: String!): String
+}
+
+type Subscription {
+    onCreateStarship: Starship
+    @aws_subscribe(mutations: ["createStarship"])
+    onUpdateStarship: Starship
+    @aws_subscribe(mutations: ["updateStarship"])
+    onDeleteStarship: String
+    @aws_subscribe(mutations: ["deleteStarship"])
+}
