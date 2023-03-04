@@ -20,7 +20,7 @@ export type AppSyncEvent = {
   }
 }
 
-export type CreateStarshipInput = Starship
+export type CreateStarshipInput = Omit<Starship, 'id'>
 
 export type UpdateStarshipInput = Optional<Starship, 'name' | 'attributes'>
 

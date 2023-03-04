@@ -8,7 +8,7 @@ type Attribute {
 type Starship {
     id: ID!
     name: String!
-    attributes: [Attribute]!
+    attributes: [Attribute!]!
 }
 
 input AttributeInput {
@@ -17,9 +17,8 @@ input AttributeInput {
 }
 
 input CreateStarshipInput {
-    id: ID!
     name: String!
-    attributes: [AttributeInput]!
+    attributes: [AttributeInput!]!
 }
 
 input UpdateStarshipInput {
