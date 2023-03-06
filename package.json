@@ -7,10 +7,11 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
-    "test": "jest",
+    "test": "jest --testPathPattern test",
     "cdk": "cdk"
   },
   "devDependencies": {
+    "@aws-cdk/assertions": "^1.195.0",
     "@types/jest": "^29.4.0",
     "@types/node": "18.14.2",
     "@types/uuid": "^9.0.1",
