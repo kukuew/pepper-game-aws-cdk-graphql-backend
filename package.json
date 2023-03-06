@@ -8,7 +8,8 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest --testPathPattern test",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "postinstall": "cd lambda-fns && npm install"
   },
   "devDependencies": {
     "@aws-cdk/assertions": "^1.195.0",
