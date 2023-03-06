@@ -6,22 +6,22 @@ import createStarship from './createStarship'
 import updateStarship from './updateStarship'
 import deleteStarship from './deleteStarship'
 
-exports.handler = async (event: AppSyncEvent) => {
+export const handler = async (event: AppSyncEvent) => {
   switch (event.info.fieldName) {
     case RESOLVERS.getStarshipById: {
-      return getStarshipById(event.arguments.starshipID)
+      return getStarshipById(event.arguments.starshipID!)
     }
     case RESOLVERS.listStarships: {
       return listStarships()
     }
     case RESOLVERS.createStarship: {
-      return createStarship(event.arguments.createStarshipInput)
+      return createStarship(event.arguments.createStarshipInput!)
     }
     case RESOLVERS.updateStarship: {
-      return updateStarship(event.arguments.updateStarshipInput)
+      return updateStarship(event.arguments.updateStarshipInput!)
     }
     case RESOLVERS.deleteStarship: {
-      return deleteStarship(event.arguments.starshipID)
+      return deleteStarship(event.arguments.starshipID!)
     }
     default: {
       return null
