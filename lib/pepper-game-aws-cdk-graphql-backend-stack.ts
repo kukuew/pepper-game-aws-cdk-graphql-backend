@@ -2,8 +2,10 @@ import * as cdk from '@aws-cdk/core'
 import * as appsync from '@aws-cdk/aws-appsync'
 import * as lambda from '@aws-cdk/aws-lambda'
 import * as ddb from '@aws-cdk/aws-dynamodb'
+import * as cr from '@aws-cdk/custom-resources'
 
 import { RESOLVERS } from '../lambda-fns/enums'
+import { StarshipsFaker } from './starships-faker'
 
 export class PepperGameAwsCdkGraphqlBackendStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -71,6 +73,20 @@ export class PepperGameAwsCdkGraphqlBackendStack extends cdk.Stack {
         name: 'id',
         type: ddb.AttributeType.STRING
       }
+    })
+
+    new cr.AwsCustomResource(this, 'initDBResourceBatch0', {
+      onCreate: {
+        service: 'DynamoDB',
+        action: 'batchWriteItem',
+        parameters: {
+          RequestItems: {
+            [table.tableName]: StarshipsFaker.generateBatch()
+          }
+        },
+        physicalResourceId: cr.PhysicalResourceId.of('initDBDataBatch0')
+      },
+      policy: cr.AwsCustomResourcePolicy.fromSdkCalls({ resources: [table.tableArn] })
     })
 
     table.grantFullAccess(starshipsLambda)
